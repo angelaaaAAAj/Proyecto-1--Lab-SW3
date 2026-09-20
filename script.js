@@ -426,6 +426,13 @@ function cambiarCantidad(idProducto, cambio) {
             mostrarMensaje(`No hay más unidades de ${producto.nombre}`, "error");
         }
     } else {
+
+        //CAMBIO 2: Se agregó una validación para evitar que la cantidad de un producto en el carrito sea menor que cero.
+        if(item.cantidad <= 0) {
+            mostrarMensaje(`La cantidad no puede ser menor que cero`, "error");
+            return;
+        }
+
         item.cantidad--;
         producto.stock++; // la unidad regresa al inventario
 
@@ -596,7 +603,8 @@ function actualizarPantalla() {
     // 8.2. Cupones: función expresiva reutilizada por el clic y por Enter que permite aplicar un cupón de descuento o envío gratis.
     // Actualiza el resumen y muestra un mensaje según el resultado.
     const aplicarCupon = function () {
-        const codigo = inputDescuento.value;
+        //Cambio 1 = Se realizo este cambio para evitar errores de validación de mayúsculas y espacios en blanco al aplicar un cupón.
+        const codigo = inputDescuento.value.trim().toUpperCase();
         const totales = calcularTotales();
 
         if (carrito.length === 0) {
