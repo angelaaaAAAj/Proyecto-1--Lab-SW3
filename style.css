@@ -21,6 +21,8 @@
     --fondo-exito: #dcfce7;
     --color-error: #b91c1c;
     --fondo-error: #fee2e2;
+    --color-advertencia: #b45309;
+    --fondo-advertencia: #fef3c7;
 
     /* Escala de espaciado: todo el diseño se calcula a partir de este número */
     --espaciado-base: 16px;
@@ -51,6 +53,8 @@
     --fondo-error: #4c1d1d;
     --color-info: #93c5fd;
     --fondo-info: #1e3a8a;
+    --color-advertencia: #fbbf24;
+    --fondo-advertencia: #451a03;
 
     --sombra: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
@@ -360,6 +364,11 @@ p { margin: 0; }
 .mensaje-error {
     --color-estado: var(--color-error);
     --fondo-estado: var(--fondo-error);
+}
+
+.mensaje-conflicto {
+    --color-estado: var(--color-advertencia);
+    --fondo-estado: var(--fondo-advertencia);
 }
 
 

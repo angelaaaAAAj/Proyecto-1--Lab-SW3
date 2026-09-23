@@ -46,6 +46,7 @@ const MINIMO_CUPON_MITAD = 100;
 let carrito = [];               // Array de objetos que se van a comprar {id, nombre, precio, icono, cantidad}
 let porcentajeDescuento = 0;    // Numero para los descuentos disponibles: 0, 0.10 o 0.50
 let envioGratisPorCupon = false;// Boolean para la selección de envío gratis o no
+let cuponActivo = false;        // String: guarda el código del cupón aplicado, si lo hay
 let categoriaActual = "todos";  // String: filtro para desplegar todo el catálogo o solo una categoría
 let temaOscuro = false;         // Boolean: controla la clase del <body>
 let numeroPedido = 1000;        // Number: contador de pedidos confirmados
@@ -439,6 +440,7 @@ function cambiarCantidad(idProducto, cambio) {
         // Si la línea llegó a cero, la sacamos del carrito
         if (item.cantidad === 0) {
             carrito = carritoSinProducto(idProducto);
+            reiniciarBeneficiosSiCarritoVacio();
         }
     }
 
@@ -457,7 +459,16 @@ function quitarDelCarrito(idProducto) {
     carrito = carritoSinProducto(idProducto);
 
     mostrarMensaje(`${producto.nombre} se quitó del carrito`, "error");
+    reiniciarBeneficiosSiCarritoVacio();
     actualizarPantalla();
+}
+
+function reiniciarBeneficiosSiCarritoVacio() {
+    if (carrito.length === 0) {
+        porcentajeDescuento = 0;
+        envioGratisPorCupon = false;
+        cuponActivo = false;
+    }
 }
 
 
@@ -576,6 +587,9 @@ function actualizarPantalla() {
             case "error":
                 mensajeSistema.classList.add("mensaje-error");
                 break;
+            case "conflicto":
+                mensajeSistema.classList.add("mensaje-conflicto");
+                break;
             default:
                 mensajeSistema.classList.add("mensaje-exito");
         }
@@ -612,11 +626,18 @@ function actualizarPantalla() {
             return;
         }
 
+        //CAMBIO 3: Control de concurrencia
+        if (cuponActivo) {
+        mostrarMensaje("Ya tienes un cupón activo. Vacía el carrito o finaliza la compra para aplicar otro.", "conflicto");
+        return;
+        }
+
         // SWITCH: comparamos el texto exacto que escribió el usuario
         switch (codigo) {
             case "DESCUENTO10":
                 porcentajeDescuento = 0.10;
                 envioGratisPorCupon = false;
+                cuponActivo = true; 
                 mostrarMensaje("Cupón aplicado: 10% de descuento", "exito");
                 break;
 
@@ -625,6 +646,7 @@ function actualizarPantalla() {
                 if (totales.subtotal >= MINIMO_CUPON_MITAD) {
                     porcentajeDescuento = 0.50;
                     envioGratisPorCupon = false;
+                    cuponActivo = true; 
                     mostrarMensaje("Cupón aplicado: 50% de descuento", "exito");
                 } else {
                     porcentajeDescuento = 0;
@@ -638,6 +660,7 @@ function actualizarPantalla() {
             case "ENVIOGRATIS":
                 porcentajeDescuento = 0;
                 envioGratisPorCupon = true;
+                cuponActivo = true; 
                 mostrarMensaje("Cupón aplicado: envío gratis", "exito");
                 break;
 
@@ -719,6 +742,7 @@ function actualizarPantalla() {
         carrito = [];
         porcentajeDescuento = 0;
         envioGratisPorCupon = false;
+        cuponActivo = false;
         inputDescuento.value = "";
         inputNombre.value = "";
         inputCorreo.value = "";
