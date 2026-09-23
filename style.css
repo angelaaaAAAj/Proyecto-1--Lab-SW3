@@ -86,7 +86,7 @@
 }
 
 .nav-principal a {
-    color: var(--color-texto-boton);
+    color: #ffffff;
     text-decoration: none;
     font-weight: 600;
     font-size: calc(var(--espaciado-base) * 0.9);
