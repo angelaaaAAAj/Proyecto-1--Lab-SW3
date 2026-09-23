@@ -78,6 +78,26 @@
     gap: var(--espaciado-base);
 }
 
+.nav-principal {
+    display: flex;
+    gap: calc(var(--espaciado-base) * 1.2);
+    padding: calc(var(--espaciado-base) * 0.5) var(--espaciado-base);
+    background-color: var(--color-cabecera);
+}
+
+.nav-principal a {
+    color: var(--color-texto-boton);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: calc(var(--espaciado-base) * 0.9);
+}
+
+.nav-principal a:hover {
+    text-decoration: underline;
+}
+
+.contador-cabecera { font-size: calc(var(--espaciado-base) * 0.9); }
+
 .contador-cabecera { font-size: calc(var(--espaciado-base) * 0.9); }
 
 #contador-carrito {

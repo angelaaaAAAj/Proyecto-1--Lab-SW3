@@ -33,6 +33,13 @@
             </p>
             <button id="btn-tema" class="boton boton-secundario">Modo oscuro</button>
         </div>
+
+        <nav class="nav-principal" aria-label="Navegación principal">
+            <a href="#catalogo">Catálogo</a>
+            <a href="#carrito">Carrito</a>
+            <a href="PEGA-AQUÍ-TU-LINK-DEL-PORTAFOLIO" target="_blank" rel="noopener">Mi hoja de vida</a>
+        </nav>
+
     </header>
 
     <!-- Aviso de conexión: JavaScript lo muestra con los eventos online/offline -->
@@ -46,7 +53,7 @@
     <main class="contenedor-principal">
 
         <!-- ---------- COLUMNA IZQUIERDA: CATÁLOGO ---------- -->
-        <section class="columna-catalogo">
+          <section class="columna-catalogo" id="catalogo">
 
             <div class="barra-filtros">
                 <h2>Catálogo</h2>
@@ -68,7 +75,7 @@
         </section>
 
         <!-- ---------- COLUMNA DERECHA: CARRITO ---------- -->
-        <aside class="panel-carrito">
+          <aside class="panel-carrito" id="carrito">
             <h2>Tu carrito</h2>
 
             <!-- Las líneas del carrito también se generan desde JavaScript -->
